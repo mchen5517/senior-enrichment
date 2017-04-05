@@ -23,7 +23,7 @@ export default () => {
                 <Link to="/students" activeClassName="active">Students</Link>
               </li>
               <li>
-                <Link to="/stories" activeClassName="active">Campuses</Link>
+                <Link to="/campuses" activeClassName="active">Campuses</Link>
               </li>
             </ul>
           </div>

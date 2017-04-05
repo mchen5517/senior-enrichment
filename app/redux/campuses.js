@@ -23,3 +23,10 @@ export default function reducer (campuses = [], action){
     default: return campuses;
   }
 }
+
+export const fetchCampuses = () => dispatch => {
+  axios.get('/api/campuses')
+  .then(res => res.data)
+  .then(campuses => dispatch(init(campuses)))
+  .catch(err => console.log(err));
+}

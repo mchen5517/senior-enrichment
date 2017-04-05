@@ -31,8 +31,8 @@ export const fetchStudents = () => dispatch => {
   .catch(err => console.log(err));
 }
 
-export const fetchStudent = (id) => {
-  return axios.get(`/api/students/$(id)`)
-  .then(res => res.data)
-  .catch(err => console.log(err));
-}
+// export const fetchStudent = (id) => {
+//   return axios.get(`/api/students/$(id)`)
+//   .then(res => res.data)
+//   .catch(err => console.log(err));
+// }

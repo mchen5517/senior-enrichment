@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { fetchStudent } from '../redux/students';
 
 class StudentPresentational extends React.Component {
   render () {
