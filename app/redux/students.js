@@ -23,3 +23,10 @@ export default function reducer (students = [], action){
     default: return students;
   }
 }
+
+export const fetchStudents = () => dispatch => {
+  axios.get('/api/students')
+  .then(res => res.data)
+  .then(students => dispatch(init(students)))
+  .catch(err => console.log(err));
+}
