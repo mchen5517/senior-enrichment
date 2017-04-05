@@ -32,7 +32,14 @@ export const fetchStudents = () => dispatch => {
 }
 
 // export const fetchStudent = (id) => {
-//   return axios.get(`/api/students/$(id)`)
+//   return axios.get(`/api/students/${id}`)
 //   .then(res => res.data)
 //   .catch(err => console.log(err));
 // }
+
+export const updateStudent = (studentId, campusId) => dispatch => {
+  return axios.put(`/api/students/${studentId}`, {campusId})
+  .then(res => res.data)
+  .then(student => dispatch(update(student)))
+  .catch(err => console.log(err));
+}

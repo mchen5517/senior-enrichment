@@ -30,3 +30,5 @@ export const fetchCampuses = () => dispatch => {
   .then(campuses => dispatch(init(campuses)))
   .catch(err => console.log(err));
 }
+
+// TODO: when a student is removed from a campus, we have to update the campus array to have that student

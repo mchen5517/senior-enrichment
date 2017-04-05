@@ -11,12 +11,13 @@ class StudentPresentational extends React.Component {
           <div>
             <p>
               {this.props.student.name}
-            </p>
-            <p>Currently at:{" "}
-              <Link to={`/campuses/${this.props.student.campus.id}`}>
-                {this.props.student.campus.name}
-              </Link>
-            </p>
+            </p> { this.props.student.campus && (
+                <p>Currently at:{" "}
+                  <Link to={`/campuses/${this.props.student.campus.id}`}>
+                    {this.props.student.campus.name}
+                  </Link>
+                </p>
+            )}
           </div>
         )}
       </div>

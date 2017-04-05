@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { updateStudent } from '../redux/students'
 
 class CampusPresentational extends React.Component {
   render () {
@@ -21,7 +22,12 @@ class CampusPresentational extends React.Component {
               <div className="row">
                 { this.props.campus.students.map(student => (
                     <div className="col-md-3 col-sm-12 text-center" key={student.id}>
-                      <Link to={`/students/${student.id}`}>{student.name}</Link>
+                      <Link to={`/students/${student.id}`}>{student.name}</Link>{" "}
+                      <button 
+                        className="btn btn-danger" 
+                        onClick={() => this.props.evict(student.id)}>
+                          <span className="glyphicon glyphicon-remove"></span>
+                      </button>
                     </div>
                   )) }
               </div>
@@ -36,5 +42,8 @@ class CampusPresentational extends React.Component {
 export default connect(
     (state, ownProps) => ({
       campus: _.find(state.campuses, _.matchesProperty("id", Number(ownProps.params.id)))
+    }),
+    dispatch => ({      // we need to pass it a function to remove the campus from the student
+      evict: (id) => dispatch(updateStudent(id, {campusId: null}))
     })
   )(CampusPresentational);
