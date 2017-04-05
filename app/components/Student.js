@@ -1,12 +1,24 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 class StudentPresentational extends React.Component {
   render () {
     return (
       <div>
-        { this.props.student && this.props.student.name }
+        { this.props.student && (
+          <div>
+            <p>
+              {this.props.student.name}
+            </p>
+            <p>Currently at:{" "}
+              <Link to={`/campuses/${this.props.student.campus.id}`}>
+                {this.props.student.campus.name}
+              </Link>
+            </p>
+          </div>
+        )}
       </div>
     )
   }
