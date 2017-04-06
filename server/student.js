@@ -29,5 +29,11 @@ router.delete('/:id', (req, res, next) => {
   .catch(err => console.log(err));
 });
 
+router.post('/', (req, res, next) => {
+  Student.create(req.body)
+  .then(student => res.json(student))
+  .catch(err => console.log(err));
+})
+
 
 module.exports = router;

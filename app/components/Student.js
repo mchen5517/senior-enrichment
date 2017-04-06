@@ -5,6 +5,13 @@ import { Link } from 'react-router';
 
 import { updateStudent } from '../redux/students'
 
+/*****
+  This file contains a presentational component and exports a container created with connect.
+  The presentational component contains all the current student (based on the url) information.
+  The information is placed inside a form, so users can update it.  The component is uncontrolled.
+  Connect passes down the student, his current campus, and a list of all the campuses.
+*****/
+
 class StudentPresentational extends React.Component {
   render () {
     return (
@@ -38,7 +45,6 @@ class StudentPresentational extends React.Component {
                       <option 
                         key={campus.id} 
                         value={campus.id} 
-                        // selected={campus.id === this.props.student.campusId && 'selected'}>
                         >
                           {campus.name}
                       </option>
@@ -61,9 +67,7 @@ class StudentPresentational extends React.Component {
 export default connect(
     (state, ownProps) => {
       const student = _.find(state.students, _.matchesProperty("id", Number(ownProps.params.id)));
-      console.log(student);
       const campus = student && _.find(state.campuses, _.matchesProperty("id", student.campusId));
-      console.log(campus)
       return {
         student,
         campus,

@@ -37,3 +37,10 @@ export const deleteCampus = (id) => dispatch => {
   .then(() => dispatch(destroy(id)))
   .catch(err => console.log(err));
 }
+
+export const addCampus = (name, image) => dispatch => {
+  return axios.post('/api/campuses', {name, image})
+  .then(res => res.data)
+  .then(campus => dispatch(create(campus)))
+  .catch(err => console.log(err));
+}

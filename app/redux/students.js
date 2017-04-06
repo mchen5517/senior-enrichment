@@ -49,3 +49,10 @@ export const deleteStudent = (id) => dispatch => {
   .then(() => dispatch(destroy(id)))
   .catch(err => console.log(err));
 }
+
+export const addStudent = (name, email, campusId) => dispatch => {
+  return axios.post('/api/students', {name, email, campusId})
+  .then(res => res.data)
+  .then(student => dispatch(create(student)))
+  .catch(err => console.log(err));
+}
