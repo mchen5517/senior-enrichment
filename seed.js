@@ -40,7 +40,7 @@ db.sync({force: true})
   }));
   students.push(Student.build({
     name: 'Lloyd Irving',
-    email: 'igotoschoolwitha12yearold@tos.com',
+    email: 'im18andaminthesameclassasa12yearold@tos.com',
     campusId: 1
   }));
   students.push(Student.build({

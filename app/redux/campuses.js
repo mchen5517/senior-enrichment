@@ -9,7 +9,7 @@ export const REMOVE = "DELETE_CAMPUS";
 const init = campuses => ({type: INIT, campuses});
 const create = campus => ({type: CREATE, campus});
 const update = campus => ({type: UPDATE, campus});
-const destroy = id => ({type: REMOVE, campus});
+const destroy = id => ({type: REMOVE, id});
 
 export default function reducer (campuses = [], action){
   switch(action.type) {
@@ -29,5 +29,11 @@ export const fetchCampuses = () => dispatch => {
   axios.get('/api/campuses')
   .then(res => res.data)
   .then(campuses => dispatch(init(campuses)))
+  .catch(err => console.log(err));
+}
+
+export const deleteCampus = (id) => dispatch => {
+  return axios.delete(`/api/campuses/${id}`)
+  .then(() => dispatch(destroy(id)))
   .catch(err => console.log(err));
 }

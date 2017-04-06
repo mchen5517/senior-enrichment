@@ -9,4 +9,11 @@ router.get('/', (req, res, next) => {
   .catch(err => console.log(err));
 });
 
+router.delete('/:id', (req, res, next) => {
+  Campus.findById(req.params.id)
+  .then(campus => campus.destroy())
+  .then(campus => res.sendStatus(200))
+  .catch(err => console.log(err));
+});
+
 module.exports = router;

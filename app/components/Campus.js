@@ -24,7 +24,7 @@ class CampusPresentational extends React.Component {
                     <div className="col-md-3 col-sm-12 text-center" key={student.id}>
                       <Link to={`/students/${student.id}`}>{student.name}</Link>{" "}
                       <button 
-                        className="btn btn-danger" 
+                        className="btn btn-danger btn-sm" 
                         onClick={() => this.props.evict(student.id)}>
                           <span className="glyphicon glyphicon-remove"></span>
                       </button>
