@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { deleteStudent } from '../redux/students';
 
-
 class StudentsPresentational extends React.Component {
   render () {
     return (

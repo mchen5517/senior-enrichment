@@ -3,25 +3,54 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import { updateStudent } from '../redux/students'
+
 class StudentPresentational extends React.Component {
   render () {
     return (
       <div>
         { this.props.student && (
           <div>
-            <p>
-              {this.props.student.name}
-            </p>
-            <p>
-              {this.props.student.email}
-            </p>
-             { this.props.campus && (
-                <p>Currently at:{" "}
-                  <Link to={`/campuses/${this.props.campus.id}`}>
-                    {this.props.campus.name}
-                  </Link>
-                </p>
-            )}
+            <form onSubmit={(evt) => this.props.updateStudent(evt)}> 
+              <label>Name: </label>
+              <div className="form-group">
+                <input name="name" defaultValue={this.props.student.name} />
+              </div>
+              <label> E-mail: </label>
+              <div className="form-group">
+                <input name="email" defaultValue={this.props.student.email} />
+              </div>
+               { this.props.campus && (
+                  <div>
+                    <label>Currently at: </label>
+                    <div className="form-group">
+                      <Link to={`/campuses/${this.props.campus.id}`}>
+                        {this.props.campus.name}
+                      </Link>
+                    </div>
+                  </div>
+              )}
+               <label>Deport to: </label>
+               <div className="form-group">
+                <select name="campus" defaultValue={this.props.student.campusId}>
+                  <option>Nowhere FeelsBadMan</option>
+                  {this.props.campuses.map(campus => (
+                      <option 
+                        key={campus.id} 
+                        value={campus.id} 
+                        // selected={campus.id === this.props.student.campusId && 'selected'}>
+                        >
+                          {campus.name}
+                      </option>
+                    ))}
+                </select>
+               </div>
+                <button
+                  type="submit"
+                  className="btn btn-warning btn-xs">
+                    Update Student
+               </button>
+             </form>
           </div>
         )}
       </div>
@@ -32,10 +61,24 @@ class StudentPresentational extends React.Component {
 export default connect(
     (state, ownProps) => {
       const student = _.find(state.students, _.matchesProperty("id", Number(ownProps.params.id)));
+      console.log(student);
       const campus = student && _.find(state.campuses, _.matchesProperty("id", student.campusId));
+      console.log(campus)
       return {
         student,
-        campus
+        campus,
+        campuses: state.campuses
       }
-    }
+    },
+    (dispatch, ownProps) => ({
+      updateStudent: (evt) => {
+        evt.preventDefault();
+        dispatch(updateStudent(Number(ownProps.params.id),
+        {
+          name: evt.target.name.value,
+          email: evt.target.email.value,
+          campusId: Number(evt.target.campus.value)
+        }
+      ))}
+    })
   )(StudentPresentational);
