@@ -20,7 +20,7 @@ class CampusPresentational extends React.Component {
             </div>
             <div className="panel-footer">
               <div className="row">
-                { this.props.campus.students.map(student => (
+                { this.props.students.map(student => (
                     <div className="col-md-3 col-sm-12 text-center" key={student.id}>
                       <Link to={`/students/${student.id}`}>{student.name}</Link>{" "}
                       <button 
@@ -41,7 +41,8 @@ class CampusPresentational extends React.Component {
 
 export default connect(
     (state, ownProps) => ({
-      campus: _.find(state.campuses, _.matchesProperty("id", Number(ownProps.params.id)))
+      campus: _.find(state.campuses, _.matchesProperty("id", Number(ownProps.params.id))),
+      students: state.students.filter(student => student.campusId === Number(ownProps.params.id))
     }),
     dispatch => ({      // we need to pass it a function to remove the campus from the student
       evict: (id) => dispatch(updateStudent(id, {campusId: null}))

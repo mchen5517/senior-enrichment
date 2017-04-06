@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {REMOVE as REMOVE_CAMPUS} from './campuses';
 
 const INIT   = "INIT_STUDENT";
 const CREATE = "CREATE_STUDENT";
@@ -17,7 +18,7 @@ export default function reducer (students = [], action){
     case CREATE:
       return [action.student, ... students];
     case UPDATE:
-      return students.filter(student => action.student.id === student.id ? action.student : student)
+      return students.map(student => action.student.id === student.id ? action.student : student)
     case REMOVE:
       return students.filter(student => student.id !==  action.id);
     default: return students;
@@ -31,14 +32,8 @@ export const fetchStudents = () => dispatch => {
   .catch(err => console.log(err));
 }
 
-// export const fetchStudent = (id) => {
-//   return axios.get(`/api/students/${id}`)
-//   .then(res => res.data)
-//   .catch(err => console.log(err));
-// }
-
-export const updateStudent = (studentId, campusId) => dispatch => {
-  return axios.put(`/api/students/${studentId}`, {campusId})
+export const updateStudent = (studentId, newValuesObj) => dispatch => {
+  return axios.put(`/api/students/${studentId}`, newValuesObj)
   .then(res => res.data)
   .then(student => dispatch(update(student)))
   .catch(err => console.log(err));

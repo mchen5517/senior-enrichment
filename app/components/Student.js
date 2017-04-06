@@ -11,10 +11,14 @@ class StudentPresentational extends React.Component {
           <div>
             <p>
               {this.props.student.name}
-            </p> { this.props.student.campus && (
+            </p>
+            <p>
+              {this.props.student.email}
+            </p>
+             { this.props.campus && (
                 <p>Currently at:{" "}
-                  <Link to={`/campuses/${this.props.student.campus.id}`}>
-                    {this.props.student.campus.name}
+                  <Link to={`/campuses/${this.props.campus.id}`}>
+                    {this.props.campus.name}
                   </Link>
                 </p>
             )}
@@ -26,8 +30,12 @@ class StudentPresentational extends React.Component {
 }
 
 export default connect(
-    (state, ownProps) => ({
-      // since the student is already on our state (on the students array), let's find the right one
-      student: _.find(state.students, _.matchesProperty("id", Number(ownProps.params.id)))
-    })
+    (state, ownProps) => {
+      const student = _.find(state.students, _.matchesProperty("id", Number(ownProps.params.id)));
+      const campus = student && _.find(state.campuses, _.matchesProperty("id", student.campusId));
+      return {
+        student,
+        campus
+      }
+    }
   )(StudentPresentational);

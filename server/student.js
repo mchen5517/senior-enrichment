@@ -4,7 +4,7 @@ const Student = require('../db/models/student');
 const Campus = require('../db/models/campus');
 
 router.get('/', (req, res, next) => {
-  Student.findAll({include: Campus})
+  Student.findAll()
   .then(students => res.json(students))
   .catch(err => console.log(err));
 });
@@ -16,6 +16,7 @@ router.get('/', (req, res, next) => {
 // });
 
 router.put('/:id', (req, res, next) => {
+  console.log(req.body);
   Student.findById(req.params.id)
   .then(student => student.updateAttributes(req.body))
   .then(student => res.json(student))
