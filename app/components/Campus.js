@@ -39,12 +39,41 @@ class CampusPresentational extends React.Component {
   }
 }
 
+class CampusContainer extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      campusNameInput: props.campus.name,
+      campusImageInput: props.campus.image
+    }
+    this.onNameChange = this.onNameChange.bind(this);
+    this.onImageChange = this.onImageChange.bind(this);
+  }
+  onNameChange(evt){
+    this.setState({campusNameInput: evt.target.value});
+  }
+  onImageChange(evt){
+    this.setState({campusImageInput: evt.target.value});
+  }
+  render(){
+    return (
+      <CampusPresentational 
+        campus={this.props.campus}
+        students={this.props.students}
+        campusNameInput={this.state.campusNameInput}
+        campusImageInput={this.state.campusImageInput}
+        onNameChange={this.onNameChange}
+        onImageChange={this.onImageChange} />
+    )
+  }
+}
+
 export default connect(
     (state, ownProps) => ({
-      campus: _.find(state.campuses, _.matchesProperty("id", Number(ownProps.params.id))),
+      campus: _.find(state.campuses, _.matchesProperty("id", Number(ownProps.params.id))) || {},
       students: state.students.filter(student => student.campusId === Number(ownProps.params.id))
     }),
     dispatch => ({      // we need to pass it a function to remove the campus from the student
       evict: (id) => dispatch(updateStudent(id, {campusId: null}))
     })
-  )(CampusPresentational);
+  )(CampusContainer);
