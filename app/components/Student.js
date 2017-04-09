@@ -40,12 +40,9 @@ class StudentPresentational extends React.Component {
                <label>Deport to: </label>
                <div className="form-group">
                 <select name="campus" defaultValue={this.props.student.campusId}>
-                  <option>Nowhere FeelsBadMan</option>
+                  <option>Nowhere</option>
                   {this.props.campuses.map(campus => (
-                      <option 
-                        key={campus.id} 
-                        value={campus.id} 
-                        >
+                      <option key={campus.id} value={campus.id}>
                           {campus.name}
                       </option>
                     ))}

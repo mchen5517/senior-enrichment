@@ -7,7 +7,7 @@ class NewStudentPresentational extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={(evt) => this.props.addCampus(evt)}>
+        <form onSubmit={this.props.addCampus}>
           <label>Name</label>
           <div className="form-group">
             <input name="name" /> 
@@ -16,7 +16,7 @@ class NewStudentPresentational extends React.Component {
           <div className="form-group">
             <input name="image" /> 
           </div>
-          <button type="summit" className="btn btn-default">Add Campus</button>        
+          <button type="submit" className="btn btn-default">Add Campus</button>        
         </form>
       </div>
     );

@@ -25,6 +25,9 @@ class StudentsPresentational extends React.Component {
                     </Link>
                   </td>
                   <td>
+                    {student.email}
+                  </td>
+                  <td>
                     <button 
                       className="btn btn-danger btn-sm" 
                       onClick={() => this.props.deleteStudent(student.id)}>

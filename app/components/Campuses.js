@@ -17,7 +17,7 @@ class CampusesPresentational extends React.Component {
                         <div className="panel-heading text-center">
                           {campus.name}
                         </div>
-                        <div className="panel-body image-panel-container">
+                        <div className="panel-body image-thumbnail-container">
                           <img src={campus.image} />
                         </div>
                       </Link>

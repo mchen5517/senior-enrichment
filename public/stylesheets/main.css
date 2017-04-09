@@ -1,9 +1,20 @@
 .image-panel-container {
   margin: 0 auto;
-  width: 500px;
   max-width: 100%;
 }
 
 .image-panel-container img {
+  max-width: 100%;
+}
+
+.image-thumbnail-container {
+  margin: 0 auto;
+  width: 500px;
+  height: 300px;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.image-thumbnail-container img {
   max-width: 100%;
 }
