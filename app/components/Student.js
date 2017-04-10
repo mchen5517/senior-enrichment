@@ -15,17 +15,17 @@ import { updateStudent } from '../redux/students'
 class StudentPresentational extends React.Component {
   render () {
     return (
-      <div>
+      <div className="container">
         { this.props.student && (
           <div>
             <form onSubmit={(evt) => this.props.updateStudent(evt)}> 
               <label>Name: </label>
               <div className="form-group">
-                <input name="name" defaultValue={this.props.student.name} />
+                <input name="name" className="form-control" defaultValue={this.props.student.name} />
               </div>
               <label> E-mail: </label>
               <div className="form-group">
-                <input name="email" defaultValue={this.props.student.email} />
+                <input name="email" className="form-control" defaultValue={this.props.student.email} />
               </div>
                { this.props.campus && (
                   <div>
@@ -39,7 +39,7 @@ class StudentPresentational extends React.Component {
               )}
                <label>Deport to: </label>
                <div className="form-group">
-                <select name="campus" defaultValue={this.props.student.campusId}>
+                <select name="campus" className="form-control" defaultValue={this.props.student.campusId}>
                   <option>Nowhere</option>
                   {this.props.campuses.map(campus => (
                       <option key={campus.id} value={campus.id}>

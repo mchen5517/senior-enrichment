@@ -8,10 +8,30 @@ import { Modal } from 'react-bootstrap';
 
 /*****
   This component set deals with a the single campus view.  It requires a local state to
-  deal with the form and modal, therefore it is a controlled component.
+  deal with the modal, therefore it is a semi-controlled component.
 *****/
 
 class CampusPresentational extends React.Component {
+
+  constructor(props) {
+    super();
+    this.state = {
+      modalOpen: false
+    }
+    this.toggleModal = this.toggleModal.bind(this);
+    this.onUpdateCampus = this.onUpdateCampus.bind(this);
+  }
+  toggleModal(){
+    console.log(this.state);
+    this.setState({modalOpen: !this.state.modalOpen});
+  }
+  onUpdateCampus(evt){
+    evt.preventDefault();
+    this.props.updateCampus({name: evt.target.campusNameInput.value, image: evt.target.campusImageInput.value})
+    .then(() => this.setState({modalOpen: false}))
+    .catch(err => console.log(err));
+  }
+
   render () {
     return (
       <div>
@@ -21,7 +41,7 @@ class CampusPresentational extends React.Component {
             <div className="panel panel-default">
               <div className="panel-heading text-center">
                 {this.props.campus.name}{"\t"}
-                <button className="btn btn-secondary btn-xs" onClick={this.props.toggleModal}>
+                <button className="btn btn-secondary btn-xs" onClick={this.toggleModal}>
                   <span className="glyphicon glyphicon-edit"></span>
                 </button> 
               </div>
@@ -47,12 +67,12 @@ class CampusPresentational extends React.Component {
             </div>
 
             <Modal 
-              show={this.props.modalOpen}
-              onHide={this.props.toggleModal}>
+              show={this.state.modalOpen}
+              onHide={this.toggleModal}>
                 <Modal.Header closeButton>
                   Edit Campus
                 </Modal.Header>
-                <form onSubmit={this.props.onUpdateCampus}>
+                <form onSubmit={this.onUpdateCampus}>
                   <Modal.Body>
                     <div className="form-group">
                       <label htmlFor="campusNameInput">Name</label>
@@ -87,41 +107,6 @@ class CampusPresentational extends React.Component {
 }
 
 /*****
-  React Component Container to hold the local state of the edit form (including the modal).
-*****/
-
-class CampusContainer extends React.Component {
-  constructor(props) {
-    super();
-    this.state = {
-      modalOpen: false
-    }
-    this.toggleModal = this.toggleModal.bind(this);
-    this.onUpdateCampus = this.onUpdateCampus.bind(this);
-  }
-  toggleModal(){
-    this.setState({modalOpen: !this.state.modalOpen});
-  }
-  onUpdateCampus(evt){
-    evt.preventDefault();
-    this.props.updateCampus({name: evt.target.campusNameInput.value, image: evt.target.campusImageInput.value})
-    .then(() => this.setState({modalOpen: false}))
-    .catch(err => console.log(err));
-  }
-  render(){
-    return (
-      <CampusPresentational 
-        campus={this.props.campus}
-        students={this.props.students}
-        modalOpen={this.state.modalOpen}
-        toggleModal={this.toggleModal} 
-        evict={this.props.evict}
-        onUpdateCampus={this.onUpdateCampus} />
-    )
-  }
-}
-
-/*****
   Connect our store to this container.
 *****/
 
@@ -134,4 +119,4 @@ export default connect(
       evict: (id) => dispatch(updateStudent(id, {campusId: null})),
       updateCampus: (newValuesObj) => dispatch(updateCampus(ownProps.params.id, newValuesObj))
     })
-  )(CampusContainer);
+  )(CampusPresentational);
