@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addCampus } from '../redux/campuses';
+import { Modal } from 'react-bootstrap';
 
-class NewStudentPresentational extends React.Component {
+class NewCampusPresentational extends React.Component {
 
   render() {
     return (
@@ -36,4 +37,4 @@ export default connect(
       evt.target.name.value = "";
       evt.target.image.value = "";
     }})
-  )(NewStudentPresentational);
+  )(NewCampusPresentational);

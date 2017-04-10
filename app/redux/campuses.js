@@ -18,7 +18,7 @@ export default function reducer (campuses = [], action){
     case CREATE:
       return [action.campus, ... campuses];
     case UPDATE:
-      return campuses.filter(campus => action.campus.id === campus.id ? action.campus : campus);
+      return campuses.map(campus => action.campus.id === campus.id ? action.campus : campus);
     case REMOVE:
       return campuses.filter(campus => campus.id !==  action.id);
     default: return campuses;
@@ -30,6 +30,12 @@ export const fetchCampuses = () => dispatch => {
   .then(res => res.data)
   .then(campuses => dispatch(init(campuses)))
   .catch(err => console.log(err));
+}
+
+export const updateCampus = (campusId, newValuesObj) => dispatch => {
+  return axios.put(`/api/campuses/${campusId}`, newValuesObj)
+  .then(res => res.data)
+  .then(campus => dispatch(update(campus)))
 }
 
 export const deleteCampus = (id) => dispatch => {

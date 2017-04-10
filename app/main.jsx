@@ -13,6 +13,7 @@ import Students from './components/Students';
 import Student from './components/Student';
 import Campuses from './components/Campuses';
 import Campus from './components/Campus';
+import Home from './components/Home';
 
 const fetchAll = function() {
   store.dispatch(fetchStudents());
@@ -23,6 +24,7 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={Root} onEnter={fetchAll}>
+        <IndexRoute component={Home} />
         <Route path="/students" component={Students} />
         <Route path="/students/:id" component={Student} />
         <Route path="/campuses" component={Campuses} />

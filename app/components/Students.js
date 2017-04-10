@@ -2,16 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { deleteStudent } from '../redux/students';
+import { Modal } from 'react-bootstrap';
+
 import NewStudent from './NewStudent'
+
 
 class StudentsPresentational extends React.Component {
   render () {
     return (
       <div>
+        <button className="btn btn-primary" onClick={this.props.toggleModal}>
+          <span className="glyphicon glyphicon-plus" /> Add Student
+        </button>
         <table className="table table-hover table-striped">
           <thead>
             <tr>
               <td>Student Name</td>
+              <td>Email Address</td>
               <td>Delete</td>
             </tr>
           </thead>
@@ -39,8 +46,32 @@ class StudentsPresentational extends React.Component {
           })}
           </tbody>
         </table>
-        <NewStudent />
+        <Modal show={this.props.modalOpen} onHide={this.props.toggleModal}>
+          <NewStudent />
+        </Modal>
       </div>
+    )
+  }
+}
+
+class StudentsContainer extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      modalOpen: false
+    }
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+  toggleModal(){
+    this.setState({modalOpen: !this.state.modalOpen});
+  }
+  render () {
+    return (
+      <StudentsPresentational
+       modalOpen={this.state.modalOpen}
+       toggleModal={this.toggleModal}
+       students={this.props.students}
+       deleteStudent={this.props.deleteStudent} />
     )
   }
 }
@@ -52,4 +83,4 @@ export default connect(
     dispatch => ({
       deleteStudent: (id) => dispatch(deleteStudent(id))
     })
-  )(StudentsPresentational);
+  )(StudentsContainer);

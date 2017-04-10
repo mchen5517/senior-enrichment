@@ -9,6 +9,13 @@ router.get('/', (req, res, next) => {
   .catch(err => console.log(err));
 });
 
+router.put('/:id', (req, res, next) => {
+  Campus.findById(req.params.id)
+  .then(campus => campus.updateAttributes(req.body))
+  .then(campus => res.json(campus))
+  .catch(err => console.log(err));
+});
+
 router.delete('/:id', (req, res, next) => {
   Campus.findById(req.params.id)
   .then(campus => campus.destroy())

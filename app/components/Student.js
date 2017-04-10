@@ -74,12 +74,11 @@ export default connect(
     (dispatch, ownProps) => ({
       updateStudent: (evt) => {
         evt.preventDefault();
-        dispatch(updateStudent(Number(ownProps.params.id),
-        {
+        dispatch(updateStudent(Number(ownProps.params.id), {
           name: evt.target.name.value,
           email: evt.target.email.value,
           campusId: Number(evt.target.campus.value)
-        }
-      ))}
+        }))
+      }
     })
   )(StudentPresentational);

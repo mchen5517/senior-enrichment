@@ -15,7 +15,9 @@ export default () => {
               <span className="icon-bar" />
               <span className="icon-bar" />
             </button>
-            <Link className="navbar-brand" to="/"><img src="" /></Link>
+            <Link className="navbar-brand" to="/">
+              <span className="glyphicon glyphicon-home" />
+            </Link>
           </div>
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
