@@ -2,12 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { deleteCampus } from '../redux/campuses';
+import { Modal } from 'react-bootstrap';
 import NewCampus from './NewCampus'
 
 class CampusesPresentational extends React.Component {
+
+  constructor(props) {
+    super();
+    this.state = {
+      modalOpen: false
+    }
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+  toggleModal(){
+    this.setState({modalOpen: !this.state.modalOpen});
+  }
+
   render () {
     return (
       <div>
+        <button className="btn btn-primary" onClick={this.toggleModal}>
+          <span className="glyphicon glyphicon-plus" /> Add Campus
+        </button>
         <div className="row">
           {this.props.campuses.map(campus => {
             return (
@@ -29,12 +45,13 @@ class CampusesPresentational extends React.Component {
                         </button>
                       </div>
                     </div>
-
                 </div>
               )
           })}
         </div>
-      <NewCampus />
+        <Modal show={this.state.modalOpen} onHide={this.toggleModal}>
+          <NewCampus />
+        </Modal>
       </div>
     )
   }
