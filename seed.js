@@ -4,7 +4,7 @@ const Campus = require('./db/models/campus');
 
 var Promise = require('bluebird');
 
-db.sync({force: true})
+db.didSync
 .then(() => {
   const campuses = [];
   campuses.push(Campus.build({
