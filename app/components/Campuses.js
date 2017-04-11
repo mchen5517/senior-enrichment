@@ -5,6 +5,10 @@ import { deleteCampus } from '../redux/campuses';
 import { Modal } from 'react-bootstrap';
 import NewCampus from './NewCampus'
 
+/*****
+  This component holds the list of links to campuses in the form of a set of panels.
+*****/
+
 class CampusesPresentational extends React.Component {
 
   constructor(props) {

@@ -6,6 +6,10 @@ import { Modal } from 'react-bootstrap';
 
 import NewStudent from './NewStudent'
 
+/*****
+  This component holds the list of links to students in the form of a table.
+  The table allows for sorting by alphabetically by name or email.
+*****/
 
 class StudentsPresentational extends React.Component {
 

@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 import { addCampus } from '../redux/campuses';
 import { Modal } from 'react-bootstrap';
 
+/*****
+  This component holds the form for the new campus, which is meant to be but inside of a Modal.
+  It is a controlled component as it needs to clear its fields when submitted.
+*****/
+
 class NewCampusPresentational extends React.Component {
 
   constructor(props) {
