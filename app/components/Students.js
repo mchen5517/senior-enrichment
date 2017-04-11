@@ -1,24 +1,46 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { deleteStudent } from '../redux/students';
+import { deleteStudent, sortStudentsByName, sortStudentsByEmail } from '../redux/students';
 import { Modal } from 'react-bootstrap';
 
 import NewStudent from './NewStudent'
 
 
 class StudentsPresentational extends React.Component {
+
+  constructor(props) {
+    super();
+    this.state = {
+      modalOpen: false
+    }
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+  toggleModal(){
+    this.setState({modalOpen: !this.state.modalOpen});
+  }
+
   render () {
     return (
       <div>
-        <button className="btn btn-primary" onClick={this.props.toggleModal}>
+        <button className="btn btn-primary" onClick={this.toggleModal}>
           <span className="glyphicon glyphicon-plus" /> Add Student
         </button>
-        <table className="table table-hover table-striped">
+        <table className="table table-hover table-striped table-bordered">
           <thead>
             <tr>
-              <td>Student Name</td>
-              <td>Email Address</td>
+              <td>
+                Student Name 
+                <button className="btn btn-link" onClick={this.props.sortStudentsByName} >
+                  <span className="glyphicon glyphicon-sort-by-alphabet"/>
+                </button>
+              </td>
+              <td>
+                Email Address
+                <button className="btn btn-link" onClick={this.props.sortStudentsByEmail} >
+                  <span className="glyphicon glyphicon-sort-by-attributes"/>
+                </button>
+              </td>
               <td>Delete</td>
             </tr>
           </thead>
@@ -46,7 +68,7 @@ class StudentsPresentational extends React.Component {
           })}
           </tbody>
         </table>
-        <Modal show={this.props.modalOpen} onHide={this.props.toggleModal}>
+        <Modal show={this.state.modalOpen} onHide={this.toggleModal}>
           <NewStudent />
         </Modal>
       </div>
@@ -54,33 +76,14 @@ class StudentsPresentational extends React.Component {
   }
 }
 
-class StudentsContainer extends React.Component {
-  constructor(props) {
-    super();
-    this.state = {
-      modalOpen: false
-    }
-    this.toggleModal = this.toggleModal.bind(this);
-  }
-  toggleModal(){
-    this.setState({modalOpen: !this.state.modalOpen});
-  }
-  render () {
-    return (
-      <StudentsPresentational
-       modalOpen={this.state.modalOpen}
-       toggleModal={this.toggleModal}
-       students={this.props.students}
-       deleteStudent={this.props.deleteStudent} />
-    )
-  }
-}
 
 export default connect(
     state => ({
       students: state.students
     }),
     dispatch => ({
-      deleteStudent: (id) => dispatch(deleteStudent(id))
+      deleteStudent: (id) => dispatch(deleteStudent(id)),
+      sortStudentsByName: () => dispatch(sortStudentsByName()),
+      sortStudentsByEmail: () => dispatch(sortStudentsByEmail())
     })
-  )(StudentsContainer);
+  )(StudentsPresentational);

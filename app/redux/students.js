@@ -5,11 +5,15 @@ const INIT   = "INIT_STUDENT";
 const CREATE = "CREATE_STUDENT";
 const UPDATE = "UPDATE_STUDENT";
 const REMOVE = "DELETE_STUDENT";
+const SORT_BY_NAME = "SORT_BY_NAME_STUDENT";
+const SORT_BY_EMAIL = "SORT_BY_EMAIL_STUDENT";
 
 const init = students => ({type: INIT, students});
 const create = student => ({type: CREATE, student});
 const update = student => ({type: UPDATE, student});
 const destroy = id => ({type: REMOVE, id});
+const sortByName = () => ({type:SORT_BY_NAME});
+const sortByEmail = () => ({type:SORT_BY_EMAIL});
 
 export default function reducer (students = [], action){
   switch(action.type) {
@@ -26,6 +30,10 @@ export default function reducer (students = [], action){
         if(student.campusId === action.id) student.campusId = null;
         return student;
       })
+    case SORT_BY_NAME: 
+      return [...students].sort((a,b) => a.name === b.name ? 0 : a.name > b.name ? 1 : -1);
+    case SORT_BY_EMAIL: 
+      return [...students].sort((a,b) => a.email === b.email ? 0 : a.email > b.email ? 1 : -1);
     default: return students;
   }
 }
@@ -55,4 +63,12 @@ export const addStudent = (name, email, campusId) => dispatch => {
   .then(res => res.data)
   .then(student => dispatch(create(student)))
   .catch(err => console.log(err));
+}
+
+export const sortStudentsByName = () => dispatch => {
+  dispatch(sortByName());
+}
+
+export const sortStudentsByEmail = () => dispatch => {
+  dispatch(sortByEmail());
 }
